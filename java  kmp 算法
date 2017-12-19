@@ -1,1 +1,44 @@
 
+public class Kmp {
+    public static void main(String[] args) {
+        String s1="hhghyhghabc";
+        String s2="abc";
+        int location=kmpCom(s1,s2);
+        System.out.println(location);
+    }
+    public static int[] getNext(String s2){
+        char[] c2=s2.toCharArray();
+        int len=c2.length;
+        int[] next=new int[len];
+        next[0]=-1;//第一项恒为-1；
+        int i=-1;
+        int j=0;
+        while(j<len-1){
+        if (i==-1||c2[i]==c2[j]){
+            i++;
+            j++;
+            next[j]=i;
+        }else{
+        i=next[i];}}
+        return next;
+    }
+    public static int kmpCom(String s1,String s2){
+        char[] c1=s1.toCharArray();
+        char[] c2=s2.toCharArray();
+        int[] next=getNext(s2);
+        int i=0;//字符串1的指针
+        int j=0;//字符串2的指针
+        while(i<c1.length&&j<c2.length){
+           if(j == -1||c1[i]==c2[j]){
+                i++;
+                j++;
+            }else {
+            j=next[j];}
+
+        }
+        if(j==c2.length){
+            return i-j;
+        }
+        return -1;//不匹配返回-1；
+    }
+}
